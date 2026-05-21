@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  /* Fix for html2canvas oklch support by providing hex fallbacks/overrides */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+}
+
+/* Explicit hex-based utility classes to avoid oklch errors in html2canvas */
+.doc-bg-white { background-color: #ffffff !important; }
+.doc-bg-slate-50 { background-color: #f8fafc !important; }
+.doc-text-slate-800 { color: #1e293b !important; }
+.doc-text-slate-600 { color: #475569 !important; }
+.doc-text-slate-300 { color: #cbd5e1 !important; }
+.doc-text-brand { color: #395d5f !important; }
+.doc-text-legal { color: #0d2c39 !important; }
+.doc-border-slate-200 { border-color: #e2e8f0 !important; }
+.doc-border-accent { border-color: #eadcc2 !important; }
+.doc-border-slate-300 { border-color: #cbd5e1 !important; }
+
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 0.5in;
+  margin: 10mm auto;
+  background: #ffffff; /* Use hex */
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  body {
+    background: white !important;
+  }
+  /* Hide everything by default */
+  body * {
+    visibility: hidden !important;
+  }
+  /* Show only the license document and its children */
+  #license-document,
+  #license-document * {
+    visibility: visible !important;
+  }
+  /* Position the document at the top left of the printed page */
+  #license-document {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0.5in !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+}
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+  width: 80%;
+}
